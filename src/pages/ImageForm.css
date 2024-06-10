@@ -1,0 +1,32 @@
+/* src/components/ImageForm.css */
+
+.image-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 2rem auto;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-form input,
+.image-form textarea,
+.image-form button {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.image-form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.image-form button:hover {
+  background-color: #45a049;
+}
