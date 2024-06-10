@@ -1,2 +1,209 @@
 ﻿# Image_Saver_by_django_React
+# Image Storage Website
 
+## Overview
+
+This project is an image storage website where users can register, log in, upload images with titles and captions, and perform CRUD (Create, Read, Update, Delete) operations on their images. The frontend is built with React, and the backend is built with Django and PostgreSQL.
+
+## Features
+
+- User registration and authentication using JWT tokens
+- Image upload with title and caption
+- View, update, and delete images
+- Responsive and user-friendly UI
+
+## Technologies Used
+
+- **Frontend**: React, Axios
+- **Backend**: Django, Django REST Framework, Simple JWT
+- **Database**: PostgreSQL
+
+## Prerequisites
+
+- Node.js and npm
+- Python 3.x and pip
+- PostgreSQL
+
+
+#################################################################################################
+
+**Overview**
+
+The image storage website seamlessly integrates frontend and backend technologies to provide users with a robust platform for managing their images. Users are first prompted to register, where they can securely create an account with a unique username and password. Once registered, users can log in using their credentials, initiating a secure authentication process facilitated by JSON Web Tokens (JWT). With authentication established, users gain access to a feature-rich interface where they can effortlessly upload images, complete with customizable titles and captions. The website's frontend, powered by React, dynamically renders uploaded images in an intuitive gallery layout, providing users with a visually engaging experience. Behind the scenes, Django's backend handles crucial tasks such as image storage, database management, and user authentication. Utilizing PostgreSQL as its database engine, Django ensures robust data persistence while offering seamless integration with the frontend. Through a series of RESTful API endpoints, the backend efficiently processes user requests, allowing for smooth interaction between the frontend and backend components. This harmonious fusion of frontend and backend technologies empowers users with a comprehensive image management solution, seamlessly blending usability, security, and performance into a cohesive user experience.
+
+
+#################################################################################################
+
+
+**Database Schema**
+
+User: Standard Django user model
+
+Image:
+id: Integer, Primary Key
+title: String
+caption: String
+image: File
+owner: ForeignKey to User
+
+
+#################################################################################################
+
+## Setup Instructions
+
+### Backend Setup
+
+1. **Clone the repository**
+
+   ```sh
+   git clone https://github.com/yourusername/image-storage-website.git
+   cd image-storage-website
+
+
+
+**Create a virtual environment and activate it**
+python -m venv venv
+source 'venv\Scripts\activate`
+
+
+**Install backend dependencies**
+pip install -r requirements.txt
+
+
+**Configure PostgreSQL**
+Create a PostgreSQL database and user:
+
+sudo -u postgres psql
+CREATE DATABASE your_db_name;
+CREATE USER your_db_user WITH PASSWORD 'your_db_password';
+ALTER ROLE your_db_user SET client_encoding TO 'utf8';
+ALTER ROLE your_db_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE your_db_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE your_db_name TO your_db_user;
+\q
+
+
+**Update backend/settings.py**
+Edit the DATABASES setting in backend/settings.py to match your PostgreSQL configuration:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'your_db_name',
+        'USER': 'your_db_user',
+        'PASSWORD': 'your_db_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+
+**Run database migrations**
+python manage.py makemigrations
+python manage.py migrate
+
+
+**Create a superuser** (optional)
+python manage.py createsuperuser
+
+
+**Run the backend server**
+python manage.py runserver
+
+#################################################################################################
+
+**Frontend Setup**
+
+**Navigate to the frontend directory**
+cd image-storage-frontend
+
+**Install frontend dependencies**
+npm install
+
+**Run the frontend development server**
+npm start
+
+## I have just given the src file here make sure you setup the frontend properly and then change its src file to the file given here ##
+
+#################################################################################################
+
+**Environment Variables**
+Create a .env file in the backend directory and add the following environment variables:
+
+SECRET_KEY=your_secret_key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+#################################################################################################
+
+**API Endpoints**
+
+**User Registration: POST /api/register/**
+Request Body: { "username": "yourusername", "password": "yourpassword" }
+Response: 201 Created
+
+**User Login: POST /api/token/**
+Request Body: { "username": "yourusername", "password": "yourpassword" }
+Response: { "access": "your_access_token", "refresh": "your_refresh_token" }
+
+**Image CRUD Operations:**
+**Create Image: POST /api/images/**
+Headers: Authorization: Bearer <token>
+Request Body: FormData { "title": "yourtitle", "caption": "yourcaption", "image": <file> }
+Response: 201 Created
+
+**Get Images: GET /api/images/**
+Headers: Authorization: Bearer <token>
+Response: [{"id": 1, "title": "title1", "caption": "caption1", "image": "image_url"}, ...]
+
+**Update Image: PUT /api/images/<id>/**
+Headers: Authorization: Bearer <token>
+Request Body: { "title": "updated_title", "caption": "updated_caption" }
+Response: 200 OK
+
+**Delete Image: DELETE /api/images/<id>/**
+Headers: Authorization: Bearer <token>
+Response: 204 No Content
+
+#################################################################################################
+
+**Overall Project Structure**
+
+image-storage-website/
+├── backend/
+│ ├── manage.py
+│ ├── backend/
+│ │ ├── init.py
+│ │ ├── settings.py
+│ │ ├── urls.py
+│ │ ├── wsgi.py
+│ ├── api/
+│ │ ├── init.py
+│ │ ├── admin.py
+│ │ ├── apps.py
+│ │ ├── models.py
+│ │ ├── serializers.py
+│ │ ├── urls.py
+│ │ ├── views.py
+│ ├── requirements.txt
+│ ├── .env
+├── image-storage-frontend/
+│ ├── public/
+│ ├── src/
+│ │ ├── components/
+│ │ │ ├── Navbar.js
+│ │ │ ├── Navbar.css
+│ │ │ ├── ImageForm.js
+│ │ │ ├── ImageForm.css
+│ │ ├── pages/
+│ │ │ ├── Home.js
+│ │ │ ├── Home.css
+│ │ │ ├── Login.js
+│ │ │ ├── Register.js
+│ │ ├── utils/
+│ │ │ ├── auth.js
+│ │ ├── App.js
+│ │ ├── App.css
+│ ├── package.json
+│ ├── package-lock.json
+├── README.md
